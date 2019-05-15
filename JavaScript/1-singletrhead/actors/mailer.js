@@ -14,7 +14,7 @@ ActorSystem.register(class Mailer {
     });
   }
 
-  message({ to, subject, message }) {
+  async message({ to, subject, message }) {
     const mail = { from: FROM, to, subject, text: message };
     this.transport.sendMail(mail, (error, data) => {
       if (error) console.log(error);

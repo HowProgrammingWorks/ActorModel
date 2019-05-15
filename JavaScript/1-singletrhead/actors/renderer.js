@@ -7,7 +7,7 @@ ActorSystem.register(class Renderer {
     console.log('Start actor: Renderer');
   }
 
-  message({ url, success, status }) {
+  async message({ url, success, status }) {
     const to = 'nodeua.com@gmail.com';
     const msg = success ? 'is available again' : 'is not available';
     const date = new Date().toUTCString();

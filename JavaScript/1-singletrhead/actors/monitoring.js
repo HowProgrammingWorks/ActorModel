@@ -31,7 +31,7 @@ ActorSystem.register(class Monitoring {
     }
   }
 
-  message() {}
+  async message() {}
 
   async exit() {
     clearInterval(this.timer);

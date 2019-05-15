@@ -7,10 +7,10 @@ ActorSystem.register(class Root {
     console.log('Start actor: Root');
     ActorSystem.start('Monitoring');
     ActorSystem.start('Renderer');
-    ActorSystem.start('Mailer');
+    ActorSystem.start('Mailer', 3);
   }
 
-  message() {}
+  async message() {}
 
   async exit() {
     setTimeout(() => {

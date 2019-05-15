@@ -9,14 +9,16 @@ class ActorSystem {
     actors.set(actor.name, { actor, instances, next });
   }
 
-  static start(name) {
+  static start(name, count = 1) {
     require('./actors/' + name.toLowerCase() + '.js');
     const record = actors.get(name);
     if (record) {
       const ActorClass = record.actor;
       const { instances } = record;
-      const instance = new ActorClass();
-      instances.push(instance);
+      for (let i = 0; i < count; i++) {
+        const instance = new ActorClass();
+        instances.push(instance);
+      }
     }
   }
 
@@ -31,8 +33,11 @@ class ActorSystem {
   static send(name, data) {
     const record = actors.get(name);
     if (record) {
-      const { instances } = record;
-      instances[0].message(data);
+      const { instances, next } = record;
+      const actor = instances[next];
+      if (instances.length - 1 > next) record.next++;
+      else record.next = 0;
+      actor.message(data);
     }
   }
 }
