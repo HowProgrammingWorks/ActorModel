@@ -10,7 +10,7 @@ class ActorSystem {
   }
 
   static start(name, count = 1) {
-    require('./actors/' + name.toLowerCase() + '.js');
+    require(`./actors/${name.toLowerCase()}.js`);
     const record = actors.get(name);
     if (record) {
       const ActorClass = record.actor;
