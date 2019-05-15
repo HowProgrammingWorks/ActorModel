@@ -4,9 +4,10 @@ const actors = new Map();
 
 class ActorSystem {
   static register(actor) {
+    const ready = [];
     const instances = [];
-    const next = 0;
-    actors.set(actor.name, { actor, instances, next });
+    const queue = [];
+    actors.set(actor.name, { actor, ready, instances, queue });
   }
 
   static start(name, count = 1) {
@@ -14,9 +15,10 @@ class ActorSystem {
     const record = actors.get(name);
     if (record) {
       const ActorClass = record.actor;
-      const { instances } = record;
+      const { ready, instances } = record;
       for (let i = 0; i < count; i++) {
         const instance = new ActorClass();
+        ready.push(instance);
         instances.push(instance);
       }
     }
@@ -30,14 +32,21 @@ class ActorSystem {
     }
   }
 
-  static send(name, data) {
+  static async send(name, data) {
     const record = actors.get(name);
     if (record) {
-      const { instances, next } = record;
-      const actor = instances[next];
-      if (instances.length - 1 > next) record.next++;
-      else record.next = 0;
-      actor.message(data);
+      const { ready, queue } = record;
+      const actor = ready.shift();
+      if (!actor) {
+        queue.push(data);
+        return;
+      }
+      await actor.message(data);
+      ready.push(actor);
+      if (queue.length > 0) {
+        const next = queue.shift();
+        this.send(name, data);
+      }
     }
   }
 }
