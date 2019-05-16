@@ -2,8 +2,6 @@
 
 const ActorSystem = require('../system');
 
-const EXIT_TIMEOUT = 10000;
-
 ActorSystem.register(class Root {
   constructor() {
     console.log('Start actor: Root');
@@ -12,18 +10,12 @@ ActorSystem.register(class Root {
     ActorSystem.start('Mailer', 3);
   }
 
-  async message() {}
+  message() {}
 
-  async exit() {
-    setTimeout(() => {
-      console.log('Abnormal termination');
-      process.exit(1);
-    }, EXIT_TIMEOUT);
-    await ActorSystem.stop('Monitoring');
-    await ActorSystem.stop('Renderer');
-    await ActorSystem.stop('Mailer');
+  exit() {
+    ActorSystem.stop('Monitoring');
+    ActorSystem.stop('Renderer');
+    ActorSystem.stop('Mailer');
     console.log('Stop actor: Root');
-    console.log('Graceful shutdown');
-    process.exit(0);
   }
 });

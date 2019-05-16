@@ -7,7 +7,7 @@ ActorSystem.register(class Renderer {
     console.log('Start actor: Renderer');
   }
 
-  async message({ url, success, status }) {
+  message({ url, success, status }) {
     const to = 'nodeua.com@gmail.com';
     const msg = success ? 'is available again' : 'is not available';
     const date = new Date().toUTCString();
@@ -17,7 +17,7 @@ ActorSystem.register(class Renderer {
     ActorSystem.send('Mailer', { to, subject, message });
   }
 
-  async exit() {
+  exit() {
     console.log('Stop actor: Renderer');
   }
 });

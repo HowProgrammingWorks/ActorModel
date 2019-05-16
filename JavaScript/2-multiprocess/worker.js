@@ -21,6 +21,8 @@ class ActorSystem {
 ActorSystem.actor = null;
 ActorSystem.instance = null;
 
+process.on('SIGINT', () => {});
+
 process.on('message', message => {
   const { command } = message;
   if (command === 'start') {
@@ -33,6 +35,7 @@ process.on('message', message => {
   if (command === 'stop') {
     const { instance } = ActorSystem;
     if (instance) instance.exit();
+    process.exit(0);
     return;
   }
   if (command === 'message') {
@@ -40,9 +43,8 @@ process.on('message', message => {
     if (instance) {
       const { data } = message;
       const { name } = ActorSystem.actor;
-      instance.message(data).then(() => {
-        process.send({ command: 'ready', name, pid: process.pid });
-      });
+      instance.message(data);
+      process.send({ command: 'ready', name, pid: process.pid });
     }
   }
 });

@@ -14,7 +14,7 @@ ActorSystem.register(class Mailer {
     });
   }
 
-  async message({ to, subject, message }) {
+  message({ to, subject, message }) {
     const mail = { from: FROM, to, subject, text: message };
     this.transport.sendMail(mail, (error, data) => {
       if (error) console.log(error);
@@ -22,7 +22,7 @@ ActorSystem.register(class Mailer {
     });
   }
 
-  async exit() {
+  exit() {
     this.transport.close();
     console.log('Stop actor: Mailer');
   }

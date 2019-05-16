@@ -31,9 +31,9 @@ ActorSystem.register(class Monitoring {
     }
   }
 
-  async message() {}
+  message() {}
 
-  async exit() {
+  exit() {
     clearInterval(this.timer);
     console.log('Stop actor: Monitoring');
   }
