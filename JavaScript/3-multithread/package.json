@@ -1,0 +1,19 @@
+{
+  "name": "server-monitoring",
+  "version": "1.0.0",
+  "description": "Actor Model example application",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HowProgrammingWorks/ActorModel.git"
+  },
+  "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HowProgrammingWorks/ActorModel/issues"
+  },
+  "homepage": "https://github.com/HowProgrammingWorks/ActorModel#readme",
+  "dependencies": {
+    "nodemailer": "^6.1.1"
+  }
+}
