@@ -28,7 +28,7 @@ class ActorSystem {
     const record = actors.get(name);
     if (record) {
       const { instances } = record;
-      await Promise.all(instances.map(instance => instance.exit()));
+      await Promise.all(instances.map((instance) => instance.exit()));
     }
   }
 

@@ -46,7 +46,7 @@ class MasterSystem {
   }
 
   static subscribe(actor) {
-    actor.on('message', message => {
+    actor.on('message', (message) => {
       const { command, name } = message;
       if (command === 'message') {
         const { data } = message;

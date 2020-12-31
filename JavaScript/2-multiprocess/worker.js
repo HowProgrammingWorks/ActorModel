@@ -23,7 +23,7 @@ ActorSystem.instance = null;
 
 process.on('SIGINT', () => {});
 
-process.on('message', message => {
+process.on('message', (message) => {
   const { command } = message;
   if (command === 'start') {
     const { name } = message;

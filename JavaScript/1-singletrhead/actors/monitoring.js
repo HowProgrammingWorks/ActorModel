@@ -16,10 +16,10 @@ ActorSystem.register(class Monitoring {
   }
 
   attempt(url) {
-    http.get(url, res => {
+    http.get(url, (res) => {
       const success = res.statusCode === 200;
       this.notify({ url, success, status: res.statusCode });
-    }).on('error', error => {
+    }).on('error', (error) => {
       this.notify({ url, success: false, status: error.message });
     });
   }
