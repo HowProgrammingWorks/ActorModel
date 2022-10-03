@@ -1,7 +1,7 @@
 'use strict';
 
 const ActorSystem = require('../system');
-const http = require('http');
+const http = require('node:http');
 
 const URL = 'http://localhost:8000/';
 const INTERVAL = 2000;

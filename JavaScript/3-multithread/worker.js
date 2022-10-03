@@ -1,6 +1,6 @@
 'use strict';
 
-const threads = require('worker_threads');
+const threads = require('node:worker_threads');
 const master = threads.parentPort;
 
 class ActorSystem {
