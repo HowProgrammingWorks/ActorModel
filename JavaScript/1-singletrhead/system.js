@@ -45,7 +45,7 @@ class ActorSystem {
       ready.push(actor);
       if (queue.length > 0) {
         const next = queue.shift();
-        this.send(name, next);
+        ActorSystem.send(name, next);
       }
     }
   }

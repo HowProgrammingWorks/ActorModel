@@ -1,29 +1,32 @@
 'use strict';
 
-const ActorSystem = require('../system');
+const ActorSystem = require('../system.js');
 const nodemailer = require('nodemailer');
-const auth = require('../config');
+const auth = require('../config.js');
 
 const FROM = 'nodeua.com@gmail.com';
 
-ActorSystem.register(class Mailer {
-  constructor() {
-    console.log('Start actor: Mailer');
-    this.transport = nodemailer.createTransport({
-      service: 'gmail', auth
-    });
-  }
+ActorSystem.register(
+  class Mailer {
+    constructor() {
+      console.log('Start actor: Mailer');
+      this.transport = nodemailer.createTransport({
+        service: 'gmail',
+        auth,
+      });
+    }
 
-  async message({ to, subject, message }) {
-    const mail = { from: FROM, to, subject, text: message };
-    this.transport.sendMail(mail, (error, data) => {
-      if (error) console.log(error);
-      else console.log(`Email sent: ${data.response}`);
-    });
-  }
+    async message({ to, subject, message }) {
+      const mail = { from: FROM, to, subject, text: message };
+      this.transport.sendMail(mail, (error, data) => {
+        if (error) console.log(error);
+        else console.log(`Email sent: ${data.response}`);
+      });
+    }
 
-  async exit() {
-    this.transport.close();
-    console.log('Stop actor: Mailer');
-  }
-});
+    async exit() {
+      this.transport.close();
+      console.log('Stop actor: Mailer');
+    }
+  },
+);
